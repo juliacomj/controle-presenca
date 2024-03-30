@@ -57,6 +57,12 @@ export default function Page() {
     }
   };
 
+  const searchStudent = () => {
+    if (searchValue) {
+      router.push(`/home/studentList?searchValue=${searchValue}`);
+    }
+  };
+
   return (
     <>
       <div className={styles.container}>
@@ -64,6 +70,7 @@ export default function Page() {
           className={styles.header}
           image={
             <Image
+              priority={true}
               className={styles.image}
               src="/octogono.png"
               alt="octogono roxo"
@@ -78,6 +85,7 @@ export default function Page() {
           value={searchValue}
           placeholder="Buscar aluno"
           id={searchId}
+          type="search"
         />
         <div>
           <PrimaryButton
@@ -86,9 +94,10 @@ export default function Page() {
             onClick={cleanSearch}
           />
           <PrimaryButton
+            disabled={!searchValue}
             className={styles.buttons}
             label="Buscar"
-            onClick={() => {}}
+            onClick={searchStudent}
           />
           <PrimaryButton
             className={styles.buttons}

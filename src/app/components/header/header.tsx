@@ -14,6 +14,8 @@ import {
   MenuPopover,
   MenuTrigger,
 } from "@fluentui/react-components";
+import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
+import Image from "next/image";
 import { useRouter } from "next/navigation";
 
 const useStyles = makeStyles({
@@ -59,13 +61,23 @@ const useStyles = makeStyles({
 export function Header() {
   const styles = useStyles();
   const router = useRouter();
+  const supabase = createClientComponentClient();
+
+  const signOut = async () => {
+    await supabase.auth.signOut();
+    router.refresh();
+    router.push("/");
+  };
 
   return (
     <>
       <nav className={styles.navbar}>
         <h1 className={styles.title}>Escola Octógono</h1>
         <span>
-          <Avatar aria-label="Guest" image={{ src: "/avatar.png" }} />
+          <Avatar
+            aria-label="Guest"
+            image={<Image alt="avatar" src={"/avatar.svg"} />}
+          />
           <span className={styles.menu}>
             <Menu>
               <MenuTrigger disableButtonEnhancement>
@@ -75,7 +87,7 @@ export function Header() {
               <MenuPopover>
                 <MenuList>
                   <MenuItem>Perfil</MenuItem>
-                  <MenuItem onClick={() => router.push("/")}>Sair</MenuItem>
+                  <MenuItem onClick={signOut}>Sair</MenuItem>
                 </MenuList>
               </MenuPopover>
             </Menu>
