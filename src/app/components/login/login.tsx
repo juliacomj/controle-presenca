@@ -111,7 +111,7 @@ export function Login() {
       <Label htmlFor={passwordId}>Senha</Label>
       <Input onChange={changePassword} type="password" id={passwordId} />
       {messages.map(({ id, intent }) => (
-        <MessageBar intent={intent} id={id}>
+        <MessageBar intent={intent} key={id}>
           <MessageBarBody>
             <MessageBarTitle>Credenciais inválidas</MessageBarTitle>
           </MessageBarBody>
