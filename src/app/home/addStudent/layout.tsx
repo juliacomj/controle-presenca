@@ -1,13 +1,22 @@
 "use client";
 
-export default function HomeLayout({
+import { makeStyles } from "@fluentui/react-components";
+
+const useStyles = makeStyles({
+  studentForm: {
+    width: "90%",
+  },
+});
+
+export default function PageLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const styles = useStyles();
   return (
     <>
-      <div>{children}</div>
+      <div className={styles.studentForm}>{children}</div>
     </>
   );
 }
