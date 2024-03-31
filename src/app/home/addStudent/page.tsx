@@ -195,7 +195,7 @@ export default function AddStudentPage() {
   const submitForm = async () => {
     const bytes = await file?.arrayBuffer();
     const extension = file?.name.split(".").pop();
-    let serverError: PostgrestError | null = null;
+    let avatarUrl: string = "";
 
     if (bytes) {
       const fileName = `${studentId}.${extension}`;
@@ -204,35 +204,33 @@ export default function AddStudentPage() {
         upsert: true,
       });
       if (!result.error) {
-        const avatarUrl = bucket.getPublicUrl(fileName).data.publicUrl;
-
-        const { data, error } = await supabase
-          .from("students")
-          .insert([{ ...payload, avatar: avatarUrl }])
-          .select();
-
-        if (data) {
-          setMessages([
-            {
-              id: "success",
-              intent: "success",
-              message: "Aluno adicionado com sucesso",
-            },
-          ]);
-        }
-
-        serverError = error;
+        avatarUrl = bucket.getPublicUrl(fileName).data.publicUrl;
       }
+    }
 
-      if (result.error || serverError) {
-        setMessages([
-          {
-            id: "error",
-            intent: "error",
-            message: "Error ao adicionar aluno",
-          },
-        ]);
-      }
+    const { data, error } = await supabase
+      .from("students")
+      .insert([{ ...payload, avatar: avatarUrl }])
+      .select();
+
+    if (data) {
+      setMessages([
+        {
+          id: "success",
+          intent: "success",
+          message: "Aluno adicionado com sucesso",
+        },
+      ]);
+    }
+
+    if (error) {
+      setMessages([
+        {
+          id: "error",
+          intent: "error",
+          message: "Error ao adicionar aluno",
+        },
+      ]);
     }
   };
 
