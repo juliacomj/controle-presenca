@@ -1,5 +1,5 @@
 export interface Student {
-    matricula: number;
+    matricula: string;
     nome: string;
     dataNascimento: string;
     serie: string;

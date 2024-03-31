@@ -47,7 +47,7 @@ export default function StudentList() {
       setIsLoading(false);
     };
     fetchStudents();
-  }, []);
+  }, [searchValue]);
 
   return isLoading ? (
     <Loading label="Procurando alunos" size="huge" />
