@@ -10,7 +10,6 @@ import {
 } from "@fluentui/react-components";
 import { Student } from "../../interfaces/Student/Students";
 import { PrimaryButton } from "../primaryButton/primaryButton";
-import Image from "next/image";
 
 const columns = [
   { columnKey: "nome", label: "Nome" },
@@ -46,14 +45,9 @@ export function ResultsTable(props: ResultsTableProps) {
                     <Avatar
                       aria-label={item.nome}
                       name={item.nome}
-                      image={
-                        <Image
-                          alt="avatar do aluno"
-                          src={item.avatar}
-                          width="50"
-                          height="50"
-                        />
-                      }
+                      image={{
+                        src: `${item.avatar}`,
+                      }}
                     />
                   }
                 >
