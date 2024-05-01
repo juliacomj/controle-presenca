@@ -19,7 +19,7 @@ Usuário: test@projetos.com
 Senha: projetos
 ``````````
 
-## Serviços de busca e resgistro de alunos
+## Serviços de busca e registro de alunos
 
-Como esse aplicação usa a free tier do serviço de nuvem do supabase, os serviços de busca e resgistro de alunos podem ser pausados devido inatividade. 
-Caso os serviços estejam inativos, entre em contato com julialcantara.ra@gmail.com. 
+Como essa aplicação usa a `free tier` do serviço de nuvem  `Supabase`, os serviços de busca e registro de alunos podem ser pausados devido inatividade. 
+Caso os serviços estejam inativos, entre em contato com [Júlia Roldi](mailto:julialcantara.ra@gmail.com). 
