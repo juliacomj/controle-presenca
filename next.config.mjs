@@ -5,7 +5,12 @@ const nextConfig = {
         missingSuspenseWithCSRBailout: false,
       },
     images:{
-      domains:['ohxesicgszkzclerpknr.supabase.co']
+      remotePatterns:[{
+        protocol: 'https',
+        hostname: 'ohxesicgszkzclerpknr.supabase.co',
+        port: '',
+        pathname: '/storage/v1/s3',
+      }]
     }
 };
 

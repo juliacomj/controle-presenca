@@ -10,20 +10,31 @@ import {
 } from "@fluentui/react-components";
 import { Student } from "../../interfaces/Student/Students";
 import { PrimaryButton } from "../primaryButton/primaryButton";
+import { StudentDataDialog } from "../studentDialog/studentDialog";
+import { Presence } from "../../interfaces/Presence/Presence";
+import { PresenceDialog } from "../presenceDialog/presenceDialog";
 
 const columns = [
   { columnKey: "nome", label: "Nome" },
   { columnKey: "matricula", label: "Matrícula" },
   { columnKey: "responsavel", label: "Responsável" },
-  { columnKey: "faltas", label: "Faltas" },
+  { columnKey: "faltas", label: "Quantidade de faltas" },
 ];
 
 interface ResultsTableProps {
   items: Student[];
+  presence: Presence[];
 }
 
+const getAbsences = (presences: Presence[], studentId: string) => {
+  return presences.filter(
+    (presence) => presence.matricula == studentId && !presence.presente
+  );
+};
+
 export function ResultsTable(props: ResultsTableProps) {
-  const { items } = props;
+  const { items, presence } = props;
+
   return (
     <>
       <Table arial-label="Default table">
@@ -37,34 +48,40 @@ export function ResultsTable(props: ResultsTableProps) {
           </TableRow>
         </TableHeader>
         <TableBody>
-          {items.map((item) => (
-            <TableRow key={item.matricula}>
-              <TableCell>
-                <TableCellLayout
-                  media={
-                    <Avatar
-                      aria-label={item.nome}
-                      name={item.nome}
-                      image={{
-                        src: `${item.avatar}`,
-                      }}
-                    />
-                  }
-                >
-                  {item.nome}
-                </TableCellLayout>
-              </TableCell>
-              <TableCell>{item.matricula}</TableCell>
-              <TableCell>{item.responsavel}</TableCell>
-              <TableCell>{item.faltas}</TableCell>
-              <TableCell>
-                <PrimaryButton label="Ver dados" onClick={() => {}} />
-              </TableCell>
-              <TableCell>
-                <PrimaryButton label="Registrar presença" onClick={() => {}} />
-              </TableCell>
-            </TableRow>
-          ))}
+          {items.map((item) => {
+            const studentAbsences = getAbsences(presence, item.matricula);
+            return (
+              <TableRow key={item.matricula}>
+                <TableCell>
+                  <TableCellLayout
+                    media={
+                      <Avatar
+                        aria-label={item.nome}
+                        name={item.nome}
+                        image={{
+                          src: item.avatar ? `${item.avatar}` : "",
+                        }}
+                      />
+                    }
+                  >
+                    {item.nome}
+                  </TableCellLayout>
+                </TableCell>
+                <TableCell>{item.matricula}</TableCell>
+                <TableCell>{item.responsavel}</TableCell>
+                <TableCell>{studentAbsences.length}</TableCell>
+                <TableCell>
+                  <StudentDataDialog
+                    student={item}
+                    presences={studentAbsences}
+                  />
+                </TableCell>
+                <TableCell>
+                  <PresenceDialog student={item} />
+                </TableCell>
+              </TableRow>
+            );
+          })}
         </TableBody>
       </Table>
     </>
