@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@fluentui/react-components": "^9.47.2",
+    "@fluentui/react-datepicker-compat": "^0.4.33",
     "@supabase/auth-helpers-nextjs": "^0.9.0",
     "@supabase/ssr": "^0.1.0",
     "@supabase/supabase-js": "^2.41.1",
@@ -17,6 +18,7 @@
     "next": "14.1.4",
     "react": "^18",
     "react-dom": "^18",
+    "sharp": "^0.33.3",
     "supabase": "^1.151.1"
   },
   "devDependencies": {

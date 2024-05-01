@@ -8,6 +8,5 @@ export interface Student {
     endereco:string;
     telefone: string;
     email: string;
-    faltas: number;
     avatar:string;
 }

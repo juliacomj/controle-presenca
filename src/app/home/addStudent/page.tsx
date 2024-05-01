@@ -11,10 +11,9 @@ import {
 } from "@fluentui/react-components";
 import * as NextImage from "next/image";
 import { useRouter } from "next/navigation";
-import React, { ChangeEvent, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import supabase from "../../utils/supabase/client";
 import { Student } from "../../interfaces/Student/Students";
-import { PostgrestError } from "@supabase/supabase-js";
 
 type InputType =
   | "number"
