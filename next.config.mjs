@@ -10,8 +10,15 @@ const nextConfig = {
         hostname: 'ohxesicgszkzclerpknr.supabase.co',
         port: '',
         pathname: '/storage/v1/s3',
-      }]
-    }
+      }, 
+      {
+        protocol: 'https',
+        hostname: 'ohxesicgszkzclerpknr.supabase.co',
+        port: '',
+        pathname: '/storage/v1/object/public/presenca-bucket/',
+      }
+    ]
+  }
 };
 
 export default nextConfig;

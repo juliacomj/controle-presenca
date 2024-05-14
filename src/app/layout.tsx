@@ -8,9 +8,6 @@ const inter = Inter({ subsets: ["latin"] });
 export const metadata: Metadata = {
   title: "Escola Octógono",
   description: "Registro de presença",
-  icons: {
-    icon: "./icon.svg",
-  },
 };
 
 export default function RootLayout({
@@ -20,6 +17,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head>
+        <link rel="icon" href="./icon.ico" type="image/svg" sizes="32x32" />
+      </head>
       <body className={inter.className} suppressHydrationWarning={true}>
         <Providers>{children}</Providers>
       </body>
