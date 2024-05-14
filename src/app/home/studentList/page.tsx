@@ -7,7 +7,7 @@ import { Loading } from "../../components/loading/loading";
 import { Student } from "../../interfaces/Student/Students";
 import { ResultsTable } from "../../components/resultsTable/resultsTable";
 import { PrimaryButton } from "../../components/primaryButton/primaryButton";
-import { makeStyles } from "@fluentui/react-components";
+import { Text, makeStyles } from "@fluentui/react-components";
 import { Presence } from "../../interfaces/Presence/Presence";
 
 const useStyles = makeStyles({
@@ -80,8 +80,13 @@ export default function StudentList() {
           onClick={() => router.push("/home/addStudent")}
         />
       </span>
-
-      <ResultsTable items={students} presence={presence} />
+      {students.length > 0 ? (
+        <ResultsTable items={students} presence={presence} />
+      ) : (
+        <Text weight="bold" size={700}>
+          ALUNO NÃO ENCONTRADO
+        </Text>
+      )}
     </main>
   );
 }

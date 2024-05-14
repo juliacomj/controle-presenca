@@ -9,7 +9,6 @@ import {
   Avatar,
 } from "@fluentui/react-components";
 import { Student } from "../../interfaces/Student/Students";
-import { PrimaryButton } from "../primaryButton/primaryButton";
 import { StudentDataDialog } from "../studentDialog/studentDialog";
 import { Presence } from "../../interfaces/Presence/Presence";
 import { PresenceDialog } from "../presenceDialog/presenceDialog";

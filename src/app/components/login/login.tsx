@@ -64,12 +64,12 @@ export function Login() {
       });
 
       router.refresh();
-      if (res.data.user) {
+      if (res.data.user && res.data.user.email) {
+        setCookie("email", res.data.user.email);
         router.push("/home");
       }
 
       if (res.error) {
-        console.log(res.error);
         setMessages([{ id: "error", intent: "error" }]);
       }
     } catch (error) {
@@ -120,4 +120,11 @@ export function Login() {
       <PrimaryButton onClick={handleSignIn} label="Entrar" />
     </Card>
   );
+}
+
+function setCookie(name: string, value: string) {
+  const d = new Date();
+  d.setTime(d.getTime() + 10 * 24 * 60 * 60 * 1000);
+  let expires = "expires=" + d.toUTCString();
+  document.cookie = name + "=" + value + ";" + expires + ";path=/";
 }

@@ -1,5 +1,7 @@
 "use client";
 
+import { getUserData } from "../../auth/utils/getUserData";
+import { Employee } from "../../interfaces/Employee/Employee";
 import {
   Avatar,
   CardFooter,
@@ -15,8 +17,8 @@ import {
   MenuTrigger,
 } from "@fluentui/react-components";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
-import Image from "next/image";
 import { useRouter } from "next/navigation";
+import React, { useState } from "react";
 
 const useStyles = makeStyles({
   navbar: {
@@ -62,6 +64,17 @@ export function Header() {
   const styles = useStyles();
   const router = useRouter();
   const supabase = createClientComponentClient();
+  const [employee, setEmployee] = useState<Employee>();
+  const date = new Date().toLocaleDateString("pt-BR");
+
+  const loadEmployee = async () => {
+    const user = await getUserData();
+    setEmployee(user);
+  };
+
+  React.useEffect(() => {
+    loadEmployee();
+  }, []);
 
   const signOut = async () => {
     await supabase.auth.signOut();
@@ -69,15 +82,17 @@ export function Header() {
     router.push("/");
   };
 
+  const openProfile = async () => {
+    router.refresh();
+    router.push("/profile");
+  };
+
   return (
     <>
       <nav className={styles.navbar}>
         <h1 className={styles.title}>Escola Octógono</h1>
         <span>
-          <Avatar
-            aria-label="Guest"
-            image={<Image alt="avatar" src={"/avatar.svg"} />}
-          />
+          <Avatar aria-label="Guest" image={{ src: employee?.avatar ?? "" }} />
           <span className={styles.menu}>
             <Menu>
               <MenuTrigger disableButtonEnhancement>
@@ -86,7 +101,7 @@ export function Header() {
 
               <MenuPopover>
                 <MenuList>
-                  <MenuItem>Perfil</MenuItem>
+                  <MenuItem onClick={openProfile}>Perfil</MenuItem>
                   <MenuItem onClick={signOut}>Sair</MenuItem>
                 </MenuList>
               </MenuPopover>
@@ -95,9 +110,9 @@ export function Header() {
         </span>
       </nav>
       <CardFooter className={styles.footer}>
-        <Label size="large">Funcionario: Nome</Label>
-        <Label size="large">Matricula: 000000</Label>
-        <Label size="large">Data: 01/01/2024</Label>
+        <Label size="large">Funcionario: {employee?.nome}</Label>
+        <Label size="large">Matricula: {employee?.id}</Label>
+        <Label size="large">Data: {date}</Label>
       </CardFooter>
     </>
   );
